@@ -1,5 +1,5 @@
 apt-get update
-apt-get install -y -qq --no-install-recommends apt-utils \
+apt-get install -y --no-install-recommends apt-utils \
     curl \
     software-properties-common \
     wget \
@@ -8,10 +8,10 @@ apt-get install -y -qq --no-install-recommends apt-utils \
     xclip \
     zip \
     unzip \
-    dialog
+    xdg-utils
 
 # OpenGL
-apt-get install -y -qq --no-install-recommends \
+apt-get install -y --no-install-recommends \
     libglvnd0 \
     libgl1 \
     libglx0 \
@@ -21,7 +21,7 @@ apt-get install -y -qq --no-install-recommends \
     mesa-utils
 
 # Okular
-apt-get install -y -qq --no-install-recommends okular
+apt-get install -y --no-install-recommends okular
 
 ln -s /usr/nvim/bin/nvim /usr/bin/vim
 
