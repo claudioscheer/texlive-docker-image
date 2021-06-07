@@ -1,5 +1,5 @@
 apt-get update
-apt-get install -y apt-utils \
+apt-get install -y -qq --no-install-recommends apt-utils \
     curl \
     software-properties-common \
     wget \
@@ -18,8 +18,10 @@ apt-get install -y -qq --no-install-recommends \
     libegl1 \
     libxext6 \
     libx11-6 \
-    mesa-utils \
-    glmark2
+    mesa-utils
+
+# Okular
+apt-get install -y -qq --no-install-recommends okular
 
 ln -s /usr/nvim/bin/nvim /usr/bin/vim
 
