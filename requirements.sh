@@ -7,7 +7,8 @@ apt-get install -y apt-utils \
     tmux \
     xclip \
     zip \
-    unzip
+    unzip \
+    dialog
 
 # OpenGL
 apt-get install -y -qq --no-install-recommends \
@@ -20,6 +21,21 @@ apt-get install -y -qq --no-install-recommends \
     mesa-utils \
     glmark2
 
+# Install Neovim from source. I should use Docker multi-stage.
+apt-get install -y ninja-build \
+    gettext \
+    libtool \
+    libtool-bin \
+    autoconf \
+    automake \
+    cmake \
+    g++ \
+    pkg-config \
+    unzip
+git clone https://github.com/neovim/neovim /neovim
+cd /neovim && make CMAKE_BUILD_TYPE=Release && make CMAKE_INSTALL_PREFIX=/usr/nvim install
+ln -s /usr/nvim/bin/nvim /usr/bin/vim
+
 curl -fsSL https://deb.nodesource.com/setup_14.x | bash -
 apt-get install -y nodejs
 npm install -g yarn
@@ -28,15 +44,11 @@ wget https://github.com/latex-lsp/texlab/releases/download/v3.1.0/texlab-x86_64-
 tar -zxvf texlab.tar.gz
 mv texlab /usr/bin
 
-add-apt-repository ppa:neovim-ppa/unstable -y
-apt-get install neovim -y
-ln -s /usr/bin/nvim /usr/bin/vim
-
 mkdir -p ~/.config/nvim
 wget https://raw.githubusercontent.com/claudioscheer/dotfiles/master/.config/nvim/init.vim -O ~/.config/nvim/init.vim
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-nvim --headless -E +PlugInstall +qall
+/usr/nvim/bin/nvim --headless -E +PlugInstall +qall
 mkdir ~/.vim/undodir -p
 
 wget https://raw.githubusercontent.com/claudioscheer/dotfiles/master/.tmux.conf -O ~/.tmux.conf
@@ -62,9 +74,11 @@ stty -ixon
 
 export EDITOR="nvim"
 export SYSTEMD_EDITOR="nvim"
+export PATH=$PATH:/usr/nvim/bin
 EOF
 
 # Clean build files.
 rm -rf /requirements.sh
 rm -rf texlab.tar.gz
 rm -rf /var/lib/apt/lists/*
+rm -rf /neovim
