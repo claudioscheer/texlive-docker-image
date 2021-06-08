@@ -8,7 +8,8 @@ apt-get install -y --no-install-recommends apt-utils \
     xclip \
     zip \
     unzip \
-    xdg-utils
+    xdg-utils \
+    procps
 
 # OpenGL
 apt-get install -y --no-install-recommends \

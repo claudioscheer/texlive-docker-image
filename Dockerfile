@@ -1,4 +1,4 @@
-FROM claudioscheer/build-neovim-development AS neovim
+FROM claudioscheer/build-neovim AS neovim
 WORKDIR /
 
 FROM texlive/texlive:latest
